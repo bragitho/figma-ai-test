@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Button from "@/components/Button";
+
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
       <main>
         <h1>Home page for test app</h1>
         <div>Test conent goes in here</div>
-        <Button label="Button desktop" />
+      
       </main>
     </>
   );
