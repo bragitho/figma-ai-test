@@ -39,7 +39,16 @@
 }
 
 :root {
-  --font-sans: "DIN Pro", "Helvetica Neue", Arial, sans-serif;
+  --font-family-base: "DIN Pro";
+  --font-size-md: 16px;
+  --font-sans: var(--font-family-base), "Helvetica Neue", Arial, sans-serif;
+
+  // Text style: Button text
+  --text-button-font-family: var(--font-family-base);
+  --text-button-font-size: var(--font-size-md);
+  --text-button-font-weight: 400;
+  --text-button-line-height: 1;
+  --text-button-letter-spacing: 0;
 }
 
 body {
