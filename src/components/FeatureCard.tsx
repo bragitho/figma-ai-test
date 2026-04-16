@@ -1,3 +1,4 @@
+import { FeatureCardCta } from "./FeatureCardCta";
 import styles from "./featureCard.module.scss";
 
 type FeatureCardProps = {
@@ -40,16 +41,7 @@ export function FeatureCard({
             {body}
           </p>
         </div>
-        <button
-          className={styles.featureCard__cta}
-          data-node-id="21:10"
-          type="button"
-        >
-          <span data-node-id="21:11">{ctaLabel}</span>
-          <span className={styles.featureCard__ctaArrow} data-node-id="21:12">
-            →
-          </span>
-        </button>
+        <FeatureCardCta label={ctaLabel} />
       </div>
     </article>
   );

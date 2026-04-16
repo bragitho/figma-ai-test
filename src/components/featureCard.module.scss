@@ -48,28 +48,6 @@
   line-height: 1.55;
 }
 
-.featureCard__cta {
-  align-items: center;
-  background: transparent;
-  border: 0;
-  color: var(--color-link-secondary);
-  column-gap: map.get(sp.$cappedSpacing, 0.5);
-  cursor: pointer;
-  display: inline-flex;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.2;
-  padding: 0;
-  text-decoration: none;
-}
-
-.featureCard__ctaArrow {
-  font-size: 16px;
-  line-height: 1;
-}
-
 @include mq.mq-max("sm") {
   .featureCard {
     inline-size: 100%;
