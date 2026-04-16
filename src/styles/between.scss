@@ -1,0 +1,47 @@
+@use "sass:map";
+@use "sass:string";
+@use "./breakpoints" as bp;
+
+/// Compute a fluid value that scales linearly between two breakpoints using `vw`.
+///
+/// The result is **not capped** outside the range—values keep scaling based on the
+/// calculated slope. If you want to limit the effect to a breakpoint range, combine
+/// this with media query mixins (e.g. `mq` / `mq-between`).
+///
+/// @param {number} $from - Unitless start value (e.g. font size at the start breakpoint).
+/// @param {number} $to - Unitless end value (e.g. font size at the end breakpoint).
+/// @param {'xs'|'sm'|'md'|'bmd'|'lg'|'xl'|'xxl'} $bpFrom ['xs'] - Breakpoint key to start scaling from.
+/// @param {'xs'|'sm'|'md'|'bmd'|'lg'|'xl'|'xxl'} $bpTo ['xl'] - Breakpoint key to end scaling at.
+/// @return {calc} A `calc()` expression using `px` + `vw` representing the fluid value.
+/// @example scss
+///   // Fluid font-size between xs and xl
+///   .title {
+///     font-size: between(16, 22, 'xs', 'xl');
+///   }
+///
+/// @example scss
+///   // Fluid spacing value reused in a calc
+///   :root { --gap: #{between(8, 24, 'xs', 'xl')}; }
+///   .grid { gap: var(--gap); }
+///
+
+@function between($from: null, $to: null, $bpFrom: "xs", $bpTo: "xl") {
+  @if $to == null or $from == null {
+    @return null;
+  }
+
+  $slope: calc(
+    ($to - $from) /
+      (map.get(bp.$breakpoints, $bpTo) - map.get(bp.$breakpoints, $bpFrom))
+  );
+  $base: ($from - ($slope * map.get(bp.$breakpoints, $bpFrom)));
+
+  // Round to precision 5 avoid long decimals
+  $slopeRound: calc(round($slope * 100000) / 100000);
+  $baseRound: calc(round($base * 100000) / 100000);
+
+  $slopeUnit: "vw";
+  @return calc(
+    string.unquote("#{$baseRound}px + 100#{$slopeUnit} * #{$slopeRound}")
+  );
+}

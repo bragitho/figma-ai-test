@@ -1,0 +1,73 @@
+@use "sass:map";
+@use "sass:math";
+@use "./between";
+@use "./sizes";
+
+/// Generate a responsive spacing map keyed by step values,
+/// where each value is a fluid `calc()` created via `between()`.
+///
+/// For each step from `$smallest` to `$largest` (inclusive), stepping by `$step`,
+/// the function computes a fluid value that transitions from a smaller baseline
+/// (derived via `sizes.$base / sizes.$modularScale`) to a larger baseline
+/// (`sizes.$base`) and returns a map of `{ step => calc(...) }`.
+///
+/// Control the interpolation range via `$bpFrom`/`$bpTo` and set `$clamp` to true
+/// when you want to cap the value outside the chosen breakpoint range (e.g. make
+/// it stop growing after `'xl'`).
+///
+/// @param {number} $smallest - Starting step value (can be negative).
+/// @param {number} $largest - Ending step value (must be ≥ `$smallest`).
+/// @param {number} $step - Increment between steps (e.g. `0.5`).
+/// @param {'xs'|'sm'|'md'|'bmd'|'lg'|'xl'|'xxl'} $bpFrom ['xs'] - Breakpoint key to start scaling from.
+/// @param {'xs'|'sm'|'md'|'bmd'|'lg'|'xl'|'xxl'} $bpTo ['xl'] - Breakpoint key to end scaling at.
+/// @param {boolean} $clamp [false] - Wrap result in `clamp()` so it stays within the breakpoint range.
+/// @return {map} A Sass map of step → fluid `calc()`/`clamp()` spacing values.
+/// @example scss
+///   $spacing: create-spacing(-32, 32, 0.5);
+///   .card { padding: map.get($spacing, 2); } // fluid padding for step 2
+///
+/// @example scss
+///   // Cap spacing at xl so it stops growing afterwards
+///   $cappedSpacing: create-spacing($clamp: true);
+///   .card { padding: map.get($cappedSpacing, 2); }
+///
+
+$defaultSpacing: (
+  "smallest": -32,
+  "largest": 32,
+  "step": 0.5,
+);
+
+@function create-spacing(
+  $smallest: map.get($defaultSpacing, "smallest"),
+  $largest: map.get($defaultSpacing, "largest"),
+  $step: map.get($defaultSpacing, "step"),
+  $bpFrom: "xs",
+  $bpTo: "xl",
+  $clamp: false
+) {
+  $spacing: ();
+  $val: $smallest;
+
+  @while $val <= $largest {
+    $minValue: (math.div(sizes.$base, sizes.$modularScale)) * $val;
+    $maxValue: sizes.$base * $val;
+    $calcValue: between.between($minValue, $maxValue, $bpFrom, $bpTo);
+
+    @if $clamp {
+      $lowerBound: math.min($minValue, $maxValue);
+      $upperBound: math.max($minValue, $maxValue);
+      $calcValue: clamp(#{$lowerBound}px, #{$calcValue}, #{$upperBound}px);
+    }
+
+    $spacing: map.set($spacing, $val, $calcValue);
+    $val: $val + $step;
+  }
+
+  @return $spacing;
+}
+
+$spacing: create-spacing();
+$cappedSpacing: create-spacing(
+  $clamp: true,
+);
