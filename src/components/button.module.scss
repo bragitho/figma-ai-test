@@ -1,0 +1,139 @@
+@use "sass:map";
+@use "../styles/mediaQueries" as mq;
+@use "../styles/spacing" as sp;
+
+.button {
+  align-items: center;
+  border-radius: var(--radius-lg);
+  border-style: solid;
+  border-width: 2px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  min-inline-size: 9rem;
+  padding: map.get(sp.$cappedSpacing, 1) map.get(sp.$cappedSpacing, 1.5);
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
+
+.button__label {
+  color: inherit;
+  font-family: var(--text-button-font-family);
+  font-size: var(--text-button-font-size);
+  font-style: normal;
+  font-weight: var(--text-button-font-weight);
+  letter-spacing: var(--text-button-letter-spacing);
+  line-height: var(--text-button-line-height);
+  white-space: nowrap;
+}
+
+.button--primary {
+  background: var(--button-primary-bg-default);
+  border-color: var(--button-primary-stroke-default);
+  color: var(--button-primary-text-default);
+}
+
+.button--primary.button--hover {
+  background: var(--button-primary-bg-hover);
+  border-color: var(--button-primary-stroke-hover);
+  color: var(--button-primary-text-hover);
+}
+
+.button--primary.button--pressed {
+  background: var(--button-primary-bg-pressed);
+  border-color: var(--button-primary-stroke-pressed);
+  color: var(--button-primary-text-pressed);
+}
+
+.button--primary.button--focus {
+  background: var(--button-primary-bg-focus);
+  border-color: var(--button-primary-stroke-focus);
+  color: var(--button-primary-text-focus);
+}
+
+.button--primary.button--disabled {
+  background: var(--button-primary-bg-disabled);
+  border-color: var(--button-primary-stroke-disabled);
+  color: var(--button-primary-text-disabled);
+}
+
+.button--secondary {
+  background: var(--button-secondary-bg-default);
+  border-color: var(--button-secondary-stroke-default);
+  color: var(--button-secondary-text-default);
+}
+
+.button--secondary.button--hover {
+  background: var(--button-secondary-bg-hover);
+  border-color: var(--button-secondary-stroke-hover);
+  color: var(--button-secondary-text-hover);
+}
+
+.button--secondary.button--pressed {
+  background: var(--button-secondary-bg-pressed);
+  border-color: var(--button-secondary-stroke-pressed);
+  color: var(--button-secondary-text-pressed);
+}
+
+.button--secondary.button--focus {
+  background: var(--button-secondary-bg-focus);
+  border-color: var(--button-secondary-stroke-focus);
+  color: var(--button-secondary-text-focus);
+}
+
+.button--secondary.button--disabled {
+  background: var(--button-secondary-bg-disabled);
+  border-color: var(--button-secondary-stroke-disabled);
+  color: var(--button-secondary-text-disabled);
+}
+
+.button--interactive.button--primary:hover:not(:disabled) {
+  background: var(--button-primary-bg-hover);
+  border-color: var(--button-primary-stroke-hover);
+  color: var(--button-primary-text-hover);
+}
+
+.button--interactive.button--secondary:hover:not(:disabled) {
+  background: var(--button-secondary-bg-hover);
+  border-color: var(--button-secondary-stroke-hover);
+  color: var(--button-secondary-text-hover);
+}
+
+.button--interactive.button--primary:active:not(:disabled) {
+  background: var(--button-primary-bg-pressed);
+  border-color: var(--button-primary-stroke-pressed);
+  color: var(--button-primary-text-pressed);
+}
+
+.button--interactive.button--secondary:active:not(:disabled) {
+  background: var(--button-secondary-bg-pressed);
+  border-color: var(--button-secondary-stroke-pressed);
+  color: var(--button-secondary-text-pressed);
+}
+
+.button--interactive.button--primary:focus-visible {
+  background: var(--button-primary-bg-focus);
+  border-color: var(--button-primary-stroke-focus);
+  color: var(--button-primary-text-focus);
+  outline: 0;
+}
+
+.button--interactive.button--secondary:focus-visible {
+  background: var(--button-secondary-bg-focus);
+  border-color: var(--button-secondary-stroke-focus);
+  color: var(--button-secondary-text-focus);
+  outline: 0;
+}
+
+@include mq.mq-max("sm") {
+  .button {
+    width: 100%;
+  }
+}
