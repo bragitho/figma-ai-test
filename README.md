@@ -38,3 +38,51 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+
+### Sass + BEM
+Each component ships with a Sass module using the BEM naming convention (`.select`, `.select__trigger`, `.select--small`). Style module file names must follow camelCase (`visuallyHidden.module.scss`). Keep selectors flat; modifiers should not rely on ancestor context.
+
+#### Do
+```tsx
+.block {
+  // styles
+  &--midifier {
+    //styles
+  }
+}
+
+.block__elememt {
+  // styles
+  &--midifier {
+    //styles
+  }
+}
+```
+
+#### DONT
+```tsx
+.block {
+  &__element {
+    // styles
+  }
+
+  &.block__element {
+    //styles
+  }
+
+  &.block--midiifier {
+    // Styles
+  }
+}
+```
+
+#### CAUSION
+```tsx
+.block {
+  // Try to avoid targetting elements directly due to performance issues.
+  // Prefer adding a css class.
+  div {
+    // styles
+  }
+}
+```
