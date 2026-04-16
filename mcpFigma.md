@@ -48,3 +48,10 @@
 ## Status
 
 This is an evolving practice. We expect to discover trade-offs as we integrate Figma MCP more deeply into our workflow, but the expectation is that the benefits will significantly outweigh the costs. Findings and adjustments will be documented here as we learn.
+
+## Possible future steps
+
+Code connect implementation
+Code connect UI or CLI
+Github connection
+
