@@ -1,0 +1,35 @@
+@use "sass:map";
+@use "../styles/spacing" as sp;
+
+.featureCardCta {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--color-link-secondary);
+  column-gap: map.get(sp.$cappedSpacing, 0.5);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0;
+  text-decoration: none;
+}
+
+.featureCardCta__label {
+  color: inherit;
+}
+
+.featureCardCta__arrow {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 1;
+  transform: translateX(0);
+  transition: transform 180ms ease-out;
+}
+
+.featureCardCta:hover .featureCardCta__arrow {
+  transform: translateX(map.get(sp.$cappedSpacing, 0.5));
+}

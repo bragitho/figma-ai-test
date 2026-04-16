@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Formal Evaluation Report</title>
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+        line-height: 1.5;
+        margin: 48px;
+        color: #111;
+      }
+      h1, h2, h3 {
+        font-weight: 700;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 0.25rem;
+      }
+      .subtitle {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 2rem;
+      }
+      .meta {
+        margin-bottom: 2rem;
+      }
+      .meta p {
+        margin: 0.25rem 0;
+      }
+      h2 {
+        margin-top: 2rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+      }
+      ul {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      li {
+        margin-bottom: 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Formal Evaluation Report</h1>
+    <p class="subtitle">AI-Assisted Figma-to-Code Workflow vs. Webflow</p>
+
+    <div class="meta">
+      <p><strong>Prepared for:</strong> Internal review</p>
+      <p><strong>Subject:</strong> Recommended platform and workflow direction for content websites and booking flows</p>
+      <p><strong>Date:</strong> April 16, 2026</p>
+    </div>
+
+    <h2>1. Executive Summary</h2>
+    <p>
+      This report evaluates two possible directions for building and maintaining
+      the company’s content websites and booking-related user experiences:
+    </p>
+    <ul>
+      <li>a <strong>Webflow</strong>-centered approach</li>
+      <li>
+        a code-first workflow using <strong>Figma</strong>,
+        <strong>Figma MCP</strong>, and an AI coding agent such as
+        <strong>Codex</strong>
+      </li>
+    </ul>
+    <p>
+      Based on the operating requirements discussed, the recommended direction
+      is the code-first <strong>Figma MCP + AI-assisted engineering</strong>
+      model.
+    </p>
+    <p>This recommendation is based on the following core factors:</p>
+    <ul>
+      <li>booking flows are embedded directly in the main frontend</li>
+      <li>the organization already depends on a complex Contentful setup</li>
+      <li>localization is a core requirement</li>
+      <li>forms are workflow-critical and tied to business logic</li>
+      <li>content pages are often connected to product and location data</li>
+      <li>engineers own production changes</li>
+      <li>the company expects significant custom logic growth</li>
+      <li>reducing long-term lock-in is important</li>
+      <li>the desired future state is a shared design system in code</li>
+    </ul>
+    <p>
+      In summary, Webflow is a strong platform for visually managed marketing
+      websites, but it is not the right primary foundation for a business-critical,
+      product-connected frontend. A code-first approach supported by Figma MCP
+      and AI provides better alignment with the company’s architecture,
+      governance model, and long-term technical goals.
+    </p>
+
+    <h2>2. Purpose of This Report</h2>
+    <p>
+      The purpose of this report is to document the reasoning behind the
+      decision to prefer an AI-assisted Figma-to-code workflow over Webflow as
+      the company’s primary implementation path.
+    </p>
+    <p>
+      The goal is not to dismiss Webflow as a product. Rather, the goal is to
+      determine which approach is the better fit for the company’s specific
+      requirements, team structure, and long-term platform strategy.
+    </p>
+
+    <h2>3. Evaluation Context</h2>
+    <p>The following operational context was established during the discussion:</p>
+    <ul>
+      <li>
+        The company builds content websites and booking flows for a
+        multi-profession business.
+      </li>
+      <li>
+        Booking engines for hotels, activities, and products are embedded within
+        the main frontend.
+      </li>
+      <li>Contentful is already used in a complex and mature way.</li>
+      <li>Localization is a core need and currently handled fairly cleanly.</li>
+      <li>
+        Marketing and product owners compose pages from approved modules rather
+        than designing fully unrestricted layouts.
+      </li>
+      <li>
+        SEO and promotional pages are often connected to product and location
+        data.
+      </li>
+      <li>Forms are workflow-critical and tied to business rules.</li>
+      <li>Engineers are the owners of production changes.</li>
+      <li>A shared design system in code is a desired future state.</li>
+      <li>
+        AI-generated output will always be reviewed by engineers, but the
+        objective is to achieve high-quality, near-shippable drafts.
+      </li>
+    </ul>
+
+    <h2>4. Options Considered</h2>
+
+    <h3>4.1 Option A: Webflow as the Primary Platform</h3>
+    <p>
+      Under this model, Webflow would act as the main platform for layout,
+      styling, content presentation, page composition, and possibly portions of
+      forms and integrations.
+    </p>
+    <p>This approach is typically strongest when:</p>
+    <ul>
+      <li>the website is primarily a publishing or marketing surface</li>
+      <li>
+        non-engineers need strong direct control over layout and page creation
+      </li>
+      <li>the content model is relatively standard</li>
+      <li>custom business logic is limited</li>
+      <li>
+        time-to-publish is more important than architectural flexibility
+      </li>
+    </ul>
+
+    <h3>4.2 Option B: Figma MCP + AI-Assisted Code Generation in a Code-First Architecture</h3>
+    <p>
+      Under this model, Figma remains the design source, Figma MCP and an AI
+      engineering agent accelerate translation into code, and the existing
+      frontend codebase remains the production runtime.
+    </p>
+    <p>This approach is strongest when:</p>
+    <ul>
+      <li>the frontend is tightly coupled to business logic</li>
+      <li>engineering owns the production system</li>
+      <li>
+        content must coexist with dynamic product or booking functionality
+      </li>
+      <li>a code-native design system is a strategic goal</li>
+      <li>
+        long-term maintainability and flexibility matter more than visual
+        publishing convenience
+      </li>
+    </ul>
+
+    <h2>5. Findings</h2>
+
+    <h3>5.1 The Company’s Frontend Behaves as a Product Surface, Not Just a Marketing Site</h3>
+    <p>
+      The booking flows are embedded in the main frontend. This means the
+      website is not only a publishing layer. It is also a business-critical
+      application surface.
+    </p>
+    <p>
+      This is a decisive architectural factor. A platform designed primarily
+      for visual site building is not the best central runtime for a system that
+      must also support booking logic, product behavior, location-specific
+      rules, and operational workflows.
+    </p>
+    <p>A code-first architecture is the more appropriate foundation.</p>
+
+    <h3>5.2 The Existing Contentful Setup Should Remain the Content Source of Truth</h3>
+    <p>
+      The company already has a complex Contentful setup, and localization
+      within that system is relatively clean.
+    </p>
+    <p>
+      Adopting Webflow as the primary platform would create pressure to
+      duplicate or partially recreate content structures, editorial workflows,
+      and rendering assumptions in another system. This would increase the risk
+      of model drift and operational inconsistency over time.
+    </p>
+    <p>The stronger option is to preserve:</p>
+    <ul>
+      <li>Contentful as the content and localization source of truth</li>
+      <li>the frontend codebase as the rendering source of truth</li>
+      <li>AI as an accelerator within that existing model</li>
+    </ul>
+
+    <h3>5.3 Localization Requires Architectural Control</h3>
+    <p>
+      Localization is a core requirement, not a secondary convenience. Even
+      with only two languages, localization affects more than translated copy.
+      It also affects:
+    </p>
+    <ul>
+      <li>routing</li>
+      <li>SEO behavior</li>
+      <li>editorial review</li>
+      <li>legal and operational content</li>
+      <li>product and booking messaging</li>
+      <li>locale-aware rendering decisions</li>
+    </ul>
+    <p>
+      Since the current localization structure is already functioning well in
+      Contentful, it is strategically preferable to keep localization inside the
+      code-first application model rather than introducing a second platform
+      layer.
+    </p>
+
+    <h3>5.4 Workflow-Critical Forms Should Remain in the Application Layer</h3>
+    <p>
+      The company’s forms are directly tied to location logic and booking
+      workflows. This makes them operational components rather than simple
+      marketing forms.
+    </p>
+    <p>These forms require full control over:</p>
+    <ul>
+      <li>validation</li>
+      <li>branching logic</li>
+      <li>downstream integrations</li>
+      <li>business rules</li>
+      <li>error handling</li>
+      <li>analytics</li>
+      <li>testing</li>
+    </ul>
+    <p>
+      For this reason, they are best implemented and maintained in code. A
+      site-builder-native approach is not an appropriate core strategy for
+      forms of this type.
+    </p>
+
+    <h3>5.5 Approved-Module Composition Does Not Require a Visual Builder Runtime</h3>
+    <p>
+      Marketing and product owners need to compose pages from approved modules
+      rather than design fully new page structures from scratch.
+    </p>
+    <p>
+      This is an important distinction. It means the real requirement is not
+      unrestricted visual editing. The real requirement is safe assembly of
+      approved building blocks.
+    </p>
+    <p>That need is well served by:</p>
+    <ul>
+      <li>reusable code-backed page sections</li>
+      <li>a structured CMS composition model</li>
+      <li>controlled styling and variation options</li>
+      <li>engineering-owned rendering behavior</li>
+    </ul>
+    <p>In this context, Webflow does not provide a decisive functional advantage.</p>
+
+    <h3>5.6 Engineering Ownership Favors a Code-Centered System</h3>
+    <p>
+      Engineers are intended to own production changes. That means the primary
+      production system should optimize for maintainability, reviewability,
+      consistency, extensibility, testing, and long-term architectural control.
+    </p>
+    <p>These priorities point directly to a code-first platform model.</p>
+
+    <h3>5.7 Expected Growth in Custom Logic Increases the Risk of Platform Friction</h3>
+    <p>
+      The company expects substantial custom logic growth over the next 12
+      months.
+    </p>
+    <p>
+      This is a common failure point for teams that adopt visual website
+      platforms as a central runtime. Such platforms can feel efficient early
+      on, but become restrictive as domain-specific requirements expand.
+    </p>
+    <p>A code-first approach is more appropriate because it:</p>
+    <ul>
+      <li>scales more cleanly with business complexity</li>
+      <li>avoids platform workarounds</li>
+      <li>supports deeper integration with booking and product logic</li>
+      <li>keeps implementation flexible as requirements evolve</li>
+    </ul>
+
+    <h3>5.8 A Shared Design System in Code Is Better Supported by AI-Assisted Figma-to-Code Workflows</h3>
+    <p>
+      The organization wants to move from a mixed component landscape toward a
+      shared design system in code.
+    </p>
+    <p>That objective aligns very well with a workflow where:</p>
+    <ul>
+      <li>designers work in Figma</li>
+      <li>Figma MCP exposes design context</li>
+      <li>AI helps produce first-draft implementations</li>
+      <li>
+        engineers review, normalize, and merge components into a shared code
+        library
+      </li>
+    </ul>
+
+    <h3>5.9 Product-Connected Landing Pages Are Better Served by Code Ownership</h3>
+    <p>
+      The company’s SEO and promotional pages are often connected to products.
+      That means these pages are not merely static editorial surfaces. They
+      often depend on product-aware and location-aware data.
+    </p>
+    <p>
+      When page content is closely tied to business context, a code-first
+      rendering layer becomes more valuable because it can manage logic, state,
+      personalization, and integration behavior consistently.
+    </p>
+
+    <h3>5.10 A Lower-Lock-In Strategy Supports Long-Term Flexibility</h3>
+    <p>
+      The company has clearly stated that lock-in is undesirable.
+    </p>
+    <p>
+      The AI-assisted Figma MCP + code direction improves implementation speed
+      without surrendering ownership of:
+    </p>
+    <ul>
+      <li>the frontend</li>
+      <li>the component system</li>
+      <li>the CMS integration model</li>
+      <li>business logic</li>
+      <li>form behavior</li>
+      <li>hosting/runtime decisions</li>
+    </ul>
+
+    <h2>6. Where Webflow Still Has Value</h2>
+    <p>
+      This report does not conclude that Webflow has no value. On the contrary,
+      Webflow remains a strong option for:
+    </p>
+    <ul>
+      <li>standalone marketing websites</li>
+      <li>brochure sites</li>
+      <li>short-lived campaign microsites</li>
+      <li>visually rich landing pages with limited business logic</li>
+      <li>
+        situations where non-engineers must publish independently and rapidly
+      </li>
+    </ul>
+    <p>
+      For isolated use cases of that kind, Webflow could still be appropriate.
+      However, those benefits do not outweigh the architectural disadvantages of
+      using it as the company’s main platform.
+    </p>
+
+    <h2>7. Recommended Future-State Architecture</h2>
+    <p>The recommended operating model is as follows:</p>
+    <ul>
+      <li>Figma serves as the design source</li>
+      <li>
+        Figma MCP and an AI engineering agent such as Codex accelerate
+        implementation
+      </li>
+      <li>
+        the existing frontend codebase remains the only production rendering
+        runtime
+      </li>
+      <li>Contentful remains the source of truth for content and localization</li>
+      <li>
+        booking engines and backend services remain the source of truth for
+        commercial and operational logic
+      </li>
+      <li>
+        a shared design system in code becomes the long-term UI foundation
+      </li>
+    </ul>
+    <p>Under this model:</p>
+    <ul>
+      <li>marketers compose pages from approved modules in Contentful</li>
+      <li>designers design those modules in Figma</li>
+      <li>AI helps engineers turn those designs into code faster</li>
+      <li>engineers review and ship production changes</li>
+      <li>all critical business behavior remains under normal engineering control</li>
+    </ul>
+
+    <h2>8. Strategic Recommendation</h2>
+    <p>
+      The company should adopt and invest in a Figma MCP + AI-assisted coding
+      workflow as an accelerator for a code-first frontend architecture.
+    </p>
+    <p>
+      The company should not adopt Webflow as the primary platform for content
+      websites and booking flows.
+    </p>
+    <p>
+      If Webflow is used at all, it should be limited to narrow,
+      low-complexity, low-coupling marketing scenarios where long-term
+      architectural integration is not important.
+    </p>
+
+    <h2>9. Conclusion</h2>
+    <p>
+      The decision is not fundamentally about choosing the more modern or more
+      impressive tool. It is about choosing the model that best fits the
+      company’s real operating conditions.
+    </p>
+    <p>Webflow is strongest when the problem is visual publishing.</p>
+    <p>
+      The company’s real problem is broader and more complex. It involves
+      content, localization, booking logic, operational forms, product-connected
+      landing pages, engineering governance, and long-term system ownership.
+    </p>
+    <p>
+      For that reason, the AI-assisted Figma-to-code direction is the better
+      choice.
+    </p>
+    <p>
+      It supports design velocity without weakening architecture. It improves
+      delivery speed without sacrificing control. Most importantly, it aligns
+      with the company’s current reality and its intended future state.
+    </p>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+@use "sass:map";
+@use "../styles/mediaQueries" as mq;
+@use "../styles/spacing" as sp;
+
+.featureCard {
+  background: var(--color-surface-card);
+  box-shadow: var(--shadow-feature-card);
+  display: flex;
+  flex-direction: column;
+  inline-size: 321px;
+}
+
+.featureCard__artwork {
+  background: var(--color-surface-artwork);
+  block-size: 191px;
+  inline-size: 100%;
+}
+
+.featureCard__content {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  gap: map.get(sp.$cappedSpacing, 2);
+  padding: map.get(sp.$cappedSpacing, 2) map.get(sp.$cappedSpacing, 2);
+}
+
+.featureCard__textStack {
+  display: flex;
+  flex-direction: column;
+  gap: map.get(sp.$cappedSpacing, 1.5);
+}
+
+.featureCard__title {
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.14;
+}
+
+.featureCard__body {
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+@include mq.mq-max("sm") {
+  .featureCard {
+    inline-size: 100%;
+  }
+}

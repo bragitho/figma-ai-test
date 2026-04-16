@@ -1,0 +1,123 @@
+@use "sass:map";
+@use "../styles/mediaQueries" as mq;
+@use "../styles/spacing" as sp;
+
+.home {
+  background: var(--color-surface-page);
+  min-height: 100vh;
+  padding: map.get(sp.$cappedSpacing, 2.5);
+}
+
+.home__panel {
+  background: var(--color-surface-page);
+  border-radius: var(--radius-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: map.get(sp.$cappedSpacing, 2);
+  margin: 0 auto;
+  max-width: 75rem;
+  width: 100%;
+}
+
+.home__section {
+  display: flex;
+  flex-direction: column;
+  gap: map.get(sp.$cappedSpacing, 1.5);
+}
+
+.home__sectionTitle {
+  color: var(--color-text-strong);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.home__topRow,
+.home__middleRow,
+.home__bottomRow {
+  display: grid;
+  gap: map.get(sp.$cappedSpacing, 1.5);
+}
+
+.home__topRow,
+.home__bottomRow {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.home__middleRow {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.home__featureCard.home__featureCard {
+  inline-size: 100%;
+}
+
+.home__textBox {
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  gap: map.get(sp.$cappedSpacing, 1);
+  min-height: 398px;
+  padding: map.get(sp.$cappedSpacing, 1.5);
+}
+
+.home__textBoxEyebrow {
+  color: var(--color-link-accent);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.home__textBoxTitle {
+  color: var(--color-text-strong);
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.home__textBoxBody {
+  color: var(--color-text-body);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  max-width: 20rem;
+}
+
+.home__buttonColumn {
+  align-items: center;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: center;
+  min-height: 88px;
+  padding: map.get(sp.$cappedSpacing, 1) map.get(sp.$cappedSpacing, 1.5);
+}
+
+@include mq.mq-max("md") {
+  .home__topRow,
+  .home__bottomRow,
+  .home__middleRow {
+    grid-template-columns: 1fr;
+  }
+
+  .home__textBox {
+    min-height: auto;
+  }
+}
+
+@include mq.mq-max("sm") {
+  .home {
+    padding: map.get(sp.$cappedSpacing, 1.5);
+  }
+}

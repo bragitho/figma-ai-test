@@ -1,31 +1,43 @@
-import type { ButtonHTMLAttributes } from "react";
-import styles from "@/components/Button.module.scss";
+import styles from "./button.module.scss";
 
 type ButtonVariant = "primary" | "secondary";
+type ButtonVisualState = "default" | "hover" | "pressed" | "focus" | "disabled";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  label: string;
+type ButtonProps = {
+  className?: string;
+  label?: string;
+  nodeId?: string;
   variant?: ButtonVariant;
+  visualState?: ButtonVisualState;
 };
 
-export default function Button({
-  label,
-  variant = "primary",
+const classNames = (...values: Array<string | false | null | undefined>) =>
+  values.filter(Boolean).join(" ");
+
+export function Button({
   className,
-  type = "button",
-  ...rest
+  label = "Reserve table",
+  nodeId,
+  variant = "primary",
+  visualState = "default",
 }: ButtonProps) {
-  const classes = [
-    styles.button,
-    styles[`button--${variant}`],
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const isDisabled = visualState === "disabled";
+  const isInteractive = visualState === "default";
 
   return (
-    <button className={classes} type={type} {...rest}>
-      {label}
+    <button
+      className={classNames(
+        styles.button,
+        className,
+        styles[`button--${variant}`],
+        styles[`button--${visualState}`],
+        isInteractive && styles["button--interactive"],
+      )}
+      data-node-id={nodeId}
+      disabled={isDisabled}
+      type="button"
+    >
+      <span className={styles.button__label}>{label}</span>
     </button>
   );
 }
