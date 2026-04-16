@@ -1,0 +1,58 @@
+.about-feature-card {
+  background: var(--color-surface-card);
+  box-shadow: var(--shadow-feature-card);
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.about-feature-card__artwork {
+  background: var(--color-surface-artwork);
+  min-height: 164px;
+  width: 100%;
+}
+
+.about-feature-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  min-height: 156px;
+  padding: 28px 22px 26px;
+}
+
+.about-feature-card__text-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.about-feature-card__title {
+  color: var(--color-accent-card);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.14;
+}
+
+.about-feature-card__body {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 22ch;
+}
+
+.about-feature-card__cta {
+  align-items: center;
+  color: var(--color-link-secondary);
+  display: inline-flex;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.about-feature-card__cta:hover,
+.about-feature-card__cta:focus-visible {
+  text-decoration: underline;
+}

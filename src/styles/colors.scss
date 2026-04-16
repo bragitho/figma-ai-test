@@ -2,8 +2,54 @@
   // Neutrals
   --color-gray-0: #ffffff;
   --color-gray-700: #404040;
+  --color-surface-page: #f1f5f9;
+  --color-surface-card: #ffffff;
+  --color-surface-artwork: #ded0b8;
+  --color-border-soft: #d1d5db;
+  --color-border-subtle: #e2e8f0;
+  --color-text-strong: #111827;
+  --color-text-body: #475569;
+  --color-text-muted: #706c6a;
+  --color-link-accent: #2563eb;
+  --color-link-secondary: #3c88a5;
+  --color-accent-card: #ff3399;
+  --shadow-feature-card: 0 12px 28px rgba(124, 138, 150, 0.18);
 
   // Primary
   --color-primary: #0c95f1;
   --color-primary-suble: #51aae6;
+
+  // Button / Primary
+  --button-primary-bg-default: #0d3b5d;
+  --button-primary-bg-hover: #12476f;
+  --button-primary-bg-pressed: #082a44;
+  --button-primary-bg-focus: #16507a;
+  --button-primary-bg-disabled: #b8c3cc;
+  --button-primary-stroke-default: #00000000;
+  --button-primary-stroke-hover: #00000000;
+  --button-primary-stroke-pressed: #00000000;
+  --button-primary-stroke-focus: #c9a66b;
+  --button-primary-stroke-disabled: #00000000;
+  --button-primary-text-default: #ffffff;
+  --button-primary-text-hover: #ffffff;
+  --button-primary-text-pressed: #ffffff;
+  --button-primary-text-focus: #ffffff;
+  --button-primary-text-disabled: #f7f9fb;
+
+  // Button / Secondary
+  --button-secondary-bg-default: #f4ede2;
+  --button-secondary-bg-hover: #eadfcc;
+  --button-secondary-bg-pressed: #ded0b8;
+  --button-secondary-bg-focus: #fbf6ee;
+  --button-secondary-bg-disabled: #f1f1f1;
+  --button-secondary-stroke-default: #0d3b5d;
+  --button-secondary-stroke-hover: #0d3b5d;
+  --button-secondary-stroke-pressed: #082a44;
+  --button-secondary-stroke-focus: #c9a66b;
+  --button-secondary-stroke-disabled: #cdd5db;
+  --button-secondary-text-default: #0d3b5d;
+  --button-secondary-text-hover: #0d3b5d;
+  --button-secondary-text-pressed: #082a44;
+  --button-secondary-text-focus: #0d3b5d;
+  --button-secondary-text-disabled: #8b98a3;
 }

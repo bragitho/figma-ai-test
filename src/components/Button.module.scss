@@ -1,0 +1,78 @@
+.button {
+  align-items: center;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  justify-content: center;
+  line-height: 1;
+  padding: 12px 20px;
+  white-space: nowrap;
+}
+
+.button--primary {
+  background: var(--button-primary-bg-default);
+  border-color: var(--button-primary-stroke-default);
+  color: var(--button-primary-text-default);
+}
+
+.button--primary:hover:not(:disabled):not(:focus-visible) {
+  background: var(--button-primary-bg-hover);
+  border-color: var(--button-primary-stroke-hover);
+  color: var(--button-primary-text-hover);
+}
+
+.button--primary:active:not(:disabled) {
+  background: var(--button-primary-bg-pressed);
+  border-color: var(--button-primary-stroke-pressed);
+  color: var(--button-primary-text-pressed);
+}
+
+.button--primary:focus-visible {
+  background: var(--button-primary-bg-focus);
+  border-color: var(--button-primary-stroke-focus);
+  color: var(--button-primary-text-focus);
+  outline: none;
+}
+
+.button--primary:disabled {
+  background: var(--button-primary-bg-disabled);
+  border-color: var(--button-primary-stroke-disabled);
+  color: var(--button-primary-text-disabled);
+  cursor: not-allowed;
+}
+
+.button--secondary {
+  background: var(--button-secondary-bg-default);
+  border-color: var(--button-secondary-stroke-default);
+  color: var(--button-secondary-text-default);
+}
+
+.button--secondary:hover:not(:disabled):not(:focus-visible) {
+  background: var(--button-secondary-bg-hover);
+  border-color: var(--button-secondary-stroke-hover);
+  color: var(--button-secondary-text-hover);
+}
+
+.button--secondary:active:not(:disabled) {
+  background: var(--button-secondary-bg-pressed);
+  border-color: var(--button-secondary-stroke-pressed);
+  color: var(--button-secondary-text-pressed);
+}
+
+.button--secondary:focus-visible {
+  background: var(--button-secondary-bg-focus);
+  border-color: var(--button-secondary-stroke-focus);
+  color: var(--button-secondary-text-focus);
+  outline: none;
+}
+
+.button--secondary:disabled {
+  background: var(--button-secondary-bg-disabled);
+  border-color: var(--button-secondary-stroke-disabled);
+  color: var(--button-secondary-text-disabled);
+  cursor: not-allowed;
+}

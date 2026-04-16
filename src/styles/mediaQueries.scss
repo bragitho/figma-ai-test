@@ -1,0 +1,132 @@
+@use "sass:map";
+@use "sass:meta";
+@use "./breakpoints" as bp;
+
+/// Media query mixin for min-width (mobile-first approach).
+/// Use this to apply styles from a breakpoint and up.
+///
+/// @param {'xs'|'sm'|'md'|'bmd'|'lg'|'xl'|'xxl'|number} $breakpoint
+///
+/// @example scss
+///   // Using breakpoint name
+///   @include mq("md") {
+///     font-size: 18px;
+///   }
+///
+///   // Using custom pixel value
+///   @include mq(1024) {
+///     font-size: 18px;
+///   }
+@mixin mq($breakpoint) {
+  @if meta.type-of($breakpoint) == "string" {
+    $value: map.get(bp.$breakpoints, $breakpoint);
+    @if $value == null {
+      @error "Breakpoint '#{$breakpoint}' not found in $breakpoints map. Available breakpoints: #{map.keys(bp.$breakpoints)}";
+    }
+    @media (min-width: #{$value}px) {
+      @content;
+    }
+  } @else if meta.type-of($breakpoint) == "number" {
+    @media (min-width: #{$breakpoint}px) {
+      @content;
+    }
+  } @else {
+    @error "Invalid breakpoint type. Expected string or number, got #{meta.type-of($breakpoint)}";
+  }
+}
+
+/// Media query mixin for max-width.
+/// Use this to apply styles up to a breakpoint.
+///
+/// @param {'xs'|'sm'|'md'|'bmd'|'lg'|'xl'|'xxl'|number} $breakpoint
+///
+/// @example scss
+///   // Using breakpoint name
+///   @include mq-max("md") {
+///     font-size: 14px;
+///   }
+///
+///   // Using custom pixel value
+///   @include mq-max(768) {
+///     font-size: 14px;
+///   }
+@mixin mq-max($breakpoint) {
+  @if meta.type-of($breakpoint) == "string" {
+    $value: map.get(bp.$breakpoints, $breakpoint);
+    @if $value == null {
+      @error "Breakpoint '#{$breakpoint}' not found in $breakpoints map. Available breakpoints: #{map.keys(bp.$breakpoints)}";
+    }
+    // Subtract 1px to avoid overlap with min-width queries
+    @media (max-width: #{$value - 1}px) {
+      @content;
+    }
+  } @else if meta.type-of($breakpoint) == "number" {
+    @media (max-width: #{$breakpoint}px) {
+      @content;
+    }
+  } @else {
+    @error "Invalid breakpoint type. Expected string or number, got #{meta.type-of($breakpoint)}";
+  }
+}
+
+/// Media query mixin for range between two breakpoints.
+/// Use this to apply styles only within a specific range.
+///
+/// **Important:** When using predefined breakpoints (strings), the upper bound is automatically
+/// adjusted by -1px to prevent overlap. When using custom numeric values, the max-width is used
+/// as-is, giving you explicit control.
+///
+/// @param {'xs'|'sm'|'md'|'bmd'|'lg'|'xl'|'xxl'|number} $from
+/// @param {'xs'|'sm'|'md'|'bmd'|'lg'|'xl'|'xxl'|number} $to
+///
+/// @example scss
+///   // Using breakpoint names (auto -1px on upper bound)
+///   @include mq-between("xs", "lg") {
+///     // Outputs: min-width: 376px and max-width: 1083px
+///     font-size: 16px;
+///   }
+///
+///   // Using custom pixel values (explicit max-width)
+///   @include mq-between(560, 780) {
+///     // Outputs: min-width: 560px and max-width: 780px
+///     font-size: 16px;
+///   }
+///
+///   // Mixed usage (custom min, predefined max)
+///   @include mq-between(560, "lg") {
+///     // Outputs: min-width: 560px and max-width: 1083px
+///     font-size: 16px;
+///   }
+@mixin mq-between($from, $to) {
+  $fromValue: null;
+  $toValue: null;
+
+  @if meta.type-of($from) == "string" {
+    $fromValue: map.get(bp.$breakpoints, $from);
+    @if $fromValue == null {
+      @error "Breakpoint '#{$from}' not found in $breakpoints map. Available breakpoints: #{map.keys(bp.$breakpoints)}";
+    }
+  } @else if meta.type-of($from) == "number" {
+    $fromValue: $from;
+  } @else {
+    @error "Invalid 'from' breakpoint type. Expected string or number, got #{meta.type-of($from)}";
+  }
+
+  @if meta.type-of($to) == "string" {
+    $predefinedBreakpointValue: map.get(bp.$breakpoints, $to);
+    @if $predefinedBreakpointValue == null {
+      @error "Breakpoint '#{$to}' not found in $breakpoints map. Available breakpoints: #{map.keys(bp.$breakpoints)}";
+    }
+    // Subtract 1px for predefined breakpoints to prevent overlap with adjacent min-width queries,
+    // matching the behavior in mq-max. Custom numeric values are used as-is for explicit control.
+    $toValue: $predefinedBreakpointValue - 1;
+  } @else if meta.type-of($to) == "number" {
+    $toValue: $to;
+  } @else {
+    @error "Invalid 'to' breakpoint type. Expected string or number, got #{meta.type-of($to)}";
+  }
+
+  @media (min-width: #{$fromValue}px) and (max-width: #{$toValue}px) {
+    @content;
+  }
+}
